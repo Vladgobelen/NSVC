@@ -1,0 +1,15 @@
+[package]
+name = "NSVC"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cpal = "0.16"
+opus = "0.3.0"
+ctrlc = "3.4"
+arraydeque = "0.5"
+crossterm = "0.29.0"
+audiopus = "0.2.0"
+hound = "3.5.1"
+chrono = "0.4.41"
+global-hotkey = "0.7.0"
