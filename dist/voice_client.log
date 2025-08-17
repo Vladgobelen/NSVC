@@ -1,0 +1,202 @@
+[2025-08-17 23:17:35] Creating client for server: 194.31.171.29:38592
+[2025-08-17 23:17:35] Socket local address: 192.168.0.92:57300
+[2025-08-17 23:17:35] Socket connected to: 194.31.171.29:38592
+[2025-08-17 23:17:35] Starting voice client
+[2025-08-17 23:17:35] Using input device: "PulseAudio Input"
+[2025-08-17 23:17:35] Using output device: "PulseAudio Output"
+[2025-08-17 23:17:35] Voice client fully started
+[2025-08-17 23:17:35] Starting audio receiver thread
+[2025-08-17 23:17:35] Starting keep-alive thread
+[2025-08-17 23:17:40] Received packet #10, size: 81b, delay: 174.4424ms, buffer: 10ms
+[2025-08-17 23:17:41] Received packet #20, size: 81b, delay: 12.2983ms, buffer: 20ms
+[2025-08-17 23:17:41] Received packet #30, size: 85b, delay: 10.1472ms, buffer: 20ms
+[2025-08-17 23:17:41] Received packet #40, size: 95b, delay: 18.5627ms, buffer: 10ms
+[2025-08-17 23:17:41] Received packet #50, size: 54b, delay: 51.5834ms, buffer: 10ms
+[2025-08-17 23:17:41] Received packet #60, size: 81b, delay: 14.4966ms, buffer: 10ms
+[2025-08-17 23:17:41] Received packet #70, size: 81b, delay: 3.6478ms, buffer: 40ms
+[2025-08-17 23:17:41] Received packet #80, size: 81b, delay: 110.3µs, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #90, size: 81b, delay: 12.0788ms, buffer: 40ms
+[2025-08-17 23:17:42] Received packet #100, size: 81b, delay: 12.5909ms, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #110, size: 81b, delay: 15.6504ms, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #120, size: 81b, delay: 8.9438ms, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #130, size: 81b, delay: 19.7187ms, buffer: 10ms
+[2025-08-17 23:17:42] Received packet #140, size: 81b, delay: 28.2163ms, buffer: 10ms
+[2025-08-17 23:17:42] Received packet #150, size: 81b, delay: 2.8668ms, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #160, size: 81b, delay: 10.2695ms, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #170, size: 82b, delay: 13.4007ms, buffer: 30ms
+[2025-08-17 23:17:42] Received packet #180, size: 81b, delay: 11.441ms, buffer: 20ms
+[2025-08-17 23:17:43] Received packet #190, size: 77b, delay: 8.0835ms, buffer: 10ms
+[2025-08-17 23:17:43] Received packet #200, size: 81b, delay: 1.8301ms, buffer: 50ms
+[2025-08-17 23:17:43] Received packet #210, size: 81b, delay: 21.3534ms, buffer: 60ms
+[2025-08-17 23:17:43] Received packet #220, size: 3b, delay: 9.7029ms, buffer: 70ms
+[2025-08-17 23:17:43] Received packet #230, size: 3b, delay: 10.9201ms, buffer: 70ms
+[2025-08-17 23:17:43] Received packet #240, size: 3b, delay: 22.6561ms, buffer: 40ms
+[2025-08-17 23:17:43] Received packet #250, size: 81b, delay: 7.1718ms, buffer: 60ms
+[2025-08-17 23:17:43] Received packet #260, size: 81b, delay: 297µs, buffer: 50ms
+[2025-08-17 23:17:43] Received packet #270, size: 3b, delay: 38.4591ms, buffer: 20ms
+[2025-08-17 23:17:44] Received packet #280, size: 96b, delay: 11.1142ms, buffer: 40ms
+[2025-08-17 23:17:44] Received packet #290, size: 123b, delay: 9.7607ms, buffer: 30ms
+[2025-08-17 23:17:44] Received packet #300, size: 81b, delay: 7.3796ms, buffer: 30ms
+[2025-08-17 23:17:44] Received packet #310, size: 81b, delay: 8.9488ms, buffer: 40ms
+[2025-08-17 23:17:44] Received packet #320, size: 90b, delay: 5.2661ms, buffer: 40ms
+[2025-08-17 23:17:44] Received packet #330, size: 81b, delay: 5.2813ms, buffer: 40ms
+[2025-08-17 23:17:44] Received packet #340, size: 81b, delay: 1.2527ms, buffer: 30ms
+[2025-08-17 23:17:44] Received packet #350, size: 75b, delay: 13.0576ms, buffer: 20ms
+[2025-08-17 23:17:44] Received packet #360, size: 85b, delay: 165.7µs, buffer: 30ms
+[2025-08-17 23:17:44] Received packet #370, size: 90b, delay: 19.1897ms, buffer: 30ms
+[2025-08-17 23:17:45] Received packet #380, size: 81b, delay: 11.8286ms, buffer: 50ms
+[2025-08-17 23:17:45] Received packet #390, size: 81b, delay: 13.5431ms, buffer: 30ms
+[2025-08-17 23:17:45] Received packet #400, size: 81b, delay: 9.3989ms, buffer: 30ms
+[2025-08-17 23:17:45] Received packet #410, size: 81b, delay: 10.8567ms, buffer: 40ms
+[2025-08-17 23:17:45] Received packet #420, size: 81b, delay: 98.4µs, buffer: 60ms
+[2025-08-17 23:17:45] Received packet #430, size: 81b, delay: 11.9114ms, buffer: 120ms
+[2025-08-17 23:17:45] Received packet #440, size: 81b, delay: 44.8474ms, buffer: 30ms
+[2025-08-17 23:17:45] Sent keep-alive packet #10 to 194.31.171.29:38592
+[2025-08-17 23:17:46] Received packet #450, size: 81b, delay: 5.8925ms, buffer: 10ms
+[2025-08-17 23:17:46] Received packet #460, size: 81b, delay: 2.5802ms, buffer: 40ms
+[2025-08-17 23:17:46] Received packet #470, size: 78b, delay: 99.9µs, buffer: 120ms
+[2025-08-17 23:17:46] Received packet #480, size: 78b, delay: 104.9µs, buffer: 200ms
+[2025-08-17 23:17:46] Received packet #490, size: 84b, delay: 134.4268ms, buffer: 70ms
+[2025-08-17 23:17:46] Received packet #500, size: 106b, delay: 250.2µs, buffer: 130ms
+[2025-08-17 23:17:46] Received packet #510, size: 81b, delay: 11.5691ms, buffer: 190ms
+[2025-08-17 23:17:46] Received packet #520, size: 81b, delay: 13.5602ms, buffer: 190ms
+[2025-08-17 23:17:46] Received packet #530, size: 81b, delay: 29.8699ms, buffer: 170ms
+[2025-08-17 23:17:46] Received packet #540, size: 98b, delay: 10.6327ms, buffer: 190ms
+[2025-08-17 23:17:46] Received packet #550, size: 81b, delay: 11.7543ms, buffer: 180ms
+[2025-08-17 23:17:46] Received packet #560, size: 3b, delay: 6.2737ms, buffer: 180ms
+[2025-08-17 23:17:47] Received packet #570, size: 3b, delay: 8.9611ms, buffer: 180ms
+[2025-08-17 23:17:47] Received packet #580, size: 85b, delay: 12.2331ms, buffer: 170ms
+[2025-08-17 23:17:47] Received packet #590, size: 81b, delay: 7.7244ms, buffer: 160ms
+[2025-08-17 23:17:47] Received packet #600, size: 81b, delay: 84.4µs, buffer: 160ms
+[2025-08-17 23:17:47] Received packet #610, size: 82b, delay: 111.7µs, buffer: 130ms
+[2025-08-17 23:17:47] Received packet #620, size: 81b, delay: 2.5666ms, buffer: 150ms
+[2025-08-17 23:17:47] Received packet #630, size: 81b, delay: 8.3066ms, buffer: 150ms
+[2025-08-17 23:17:47] Received packet #640, size: 81b, delay: 12.3644ms, buffer: 140ms
+[2025-08-17 23:17:47] Received packet #650, size: 94b, delay: 16.3807ms, buffer: 130ms
+[2025-08-17 23:17:47] Received packet #660, size: 109b, delay: 10.0784ms, buffer: 140ms
+[2025-08-17 23:17:48] Received packet #670, size: 81b, delay: 156.4µs, buffer: 120ms
+[2025-08-17 23:17:48] Received packet #680, size: 81b, delay: 1.3501ms, buffer: 130ms
+[2025-08-17 23:17:48] Received packet #690, size: 3b, delay: 17.5454ms, buffer: 110ms
+[2025-08-17 23:17:48] Received packet #700, size: 3b, delay: 8.7853ms, buffer: 110ms
+[2025-08-17 23:17:48] Received packet #710, size: 3b, delay: 12.1471ms, buffer: 110ms
+[2025-08-17 23:17:48] Received packet #720, size: 3b, delay: 9.7476ms, buffer: 110ms
+[2025-08-17 23:17:48] Received packet #730, size: 3b, delay: 10.6364ms, buffer: 110ms
+[2025-08-17 23:17:48] Received packet #740, size: 111b, delay: 8.4332ms, buffer: 100ms
+[2025-08-17 23:17:48] Received packet #750, size: 81b, delay: 11.6304ms, buffer: 100ms
+[2025-08-17 23:17:49] Received packet #760, size: 81b, delay: 10.22ms, buffer: 90ms
+[2025-08-17 23:17:49] Received packet #770, size: 81b, delay: 5.462ms, buffer: 90ms
+[2025-08-17 23:17:49] Received packet #780, size: 89b, delay: 11.4806ms, buffer: 90ms
+[2025-08-17 23:17:49] Received packet #790, size: 81b, delay: 12.7059ms, buffer: 70ms
+[2025-08-17 23:17:49] Received packet #800, size: 81b, delay: 1.2702ms, buffer: 50ms
+[2025-08-17 23:17:49] Received packet #810, size: 76b, delay: 9.8198ms, buffer: 70ms
+[2025-08-17 23:17:49] Received packet #820, size: 86b, delay: 9.0011ms, buffer: 60ms
+[2025-08-17 23:17:49] Received packet #830, size: 80b, delay: 3.0615ms, buffer: 50ms
+[2025-08-17 23:17:49] Received packet #840, size: 70b, delay: 9.6337ms, buffer: 50ms
+[2025-08-17 23:17:49] Received packet #850, size: 81b, delay: 12.0852ms, buffer: 50ms
+[2025-08-17 23:17:50] Received packet #860, size: 81b, delay: 12.668ms, buffer: 40ms
+[2025-08-17 23:17:50] Received packet #870, size: 81b, delay: 11.2385ms, buffer: 50ms
+[2025-08-17 23:17:50] Received packet #880, size: 81b, delay: 3.1737ms, buffer: 60ms
+[2025-08-17 23:17:50] Received packet #890, size: 81b, delay: 139.0145ms, buffer: 10ms
+[2025-08-17 23:17:50] Received packet #900, size: 81b, delay: 160.9µs, buffer: 90ms
+[2025-08-17 23:17:50] Received packet #910, size: 99b, delay: 107.4531ms, buffer: 50ms
+[2025-08-17 23:17:50] Received packet #920, size: 3b, delay: 6.5088ms, buffer: 140ms
+[2025-08-17 23:17:55] Sent keep-alive packet #20 to 194.31.171.29:38592
+[2025-08-17 23:18:01] Received packet #930, size: 95b, delay: 158.5µs, buffer: 20ms
+[2025-08-17 23:18:01] Received packet #940, size: 81b, delay: 10.6091ms, buffer: 30ms
+[2025-08-17 23:18:01] Received packet #950, size: 81b, delay: 12.2012ms, buffer: 20ms
+[2025-08-17 23:18:01] Received packet #960, size: 99b, delay: 5.786ms, buffer: 30ms
+[2025-08-17 23:18:01] Received packet #970, size: 81b, delay: 10.8191ms, buffer: 30ms
+[2025-08-17 23:18:02] Received packet #980, size: 81b, delay: 11.6792ms, buffer: 20ms
+[2025-08-17 23:18:02] Received packet #990, size: 78b, delay: 15.9608ms, buffer: 10ms
+[2025-08-17 23:18:02] Received packet #1000, size: 87b, delay: 10.1147ms, buffer: 30ms
+[2025-08-17 23:18:02] Received packet #1010, size: 61b, delay: 2.8594ms, buffer: 30ms
+[2025-08-17 23:18:02] Received packet #1020, size: 81b, delay: 12.8862ms, buffer: 30ms
+[2025-08-17 23:18:02] Received packet #1030, size: 81b, delay: 14.0028ms, buffer: 40ms
+[2025-08-17 23:18:02] Received packet #1040, size: 81b, delay: 18.5047ms, buffer: 40ms
+[2025-08-17 23:18:02] Received packet #1050, size: 81b, delay: 8.6946ms, buffer: 40ms
+[2025-08-17 23:18:02] Received packet #1060, size: 3b, delay: 11.1982ms, buffer: 40ms
+[2025-08-17 23:18:03] Received packet #1070, size: 81b, delay: 28.7111ms, buffer: 10ms
+[2025-08-17 23:18:03] Received packet #1080, size: 99b, delay: 13.7283ms, buffer: 20ms
+[2025-08-17 23:18:03] Received packet #1090, size: 101b, delay: 6.7417ms, buffer: 20ms
+[2025-08-17 23:18:03] Received packet #1100, size: 97b, delay: 12.7216ms, buffer: 20ms
+[2025-08-17 23:18:03] Received packet #1110, size: 93b, delay: 21.3492ms, buffer: 20ms
+[2025-08-17 23:18:03] Received packet #1120, size: 81b, delay: 9.8805ms, buffer: 40ms
+[2025-08-17 23:18:03] Received packet #1130, size: 87b, delay: 15.4529ms, buffer: 30ms
+[2025-08-17 23:18:03] Received packet #1140, size: 81b, delay: 22.3599ms, buffer: 20ms
+[2025-08-17 23:18:03] Received packet #1150, size: 81b, delay: 11.4453ms, buffer: 30ms
+[2025-08-17 23:18:03] Received packet #1160, size: 81b, delay: 14.7715ms, buffer: 40ms
+[2025-08-17 23:18:04] Received packet #1170, size: 81b, delay: 15.7199ms, buffer: 40ms
+[2025-08-17 23:18:04] Received packet #1180, size: 89b, delay: 10.7898ms, buffer: 30ms
+[2025-08-17 23:18:04] Received packet #1190, size: 81b, delay: 10.2693ms, buffer: 30ms
+[2025-08-17 23:18:04] Received packet #1200, size: 75b, delay: 11.1738ms, buffer: 20ms
+[2025-08-17 23:18:04] Received packet #1210, size: 81b, delay: 12.2041ms, buffer: 20ms
+[2025-08-17 23:18:04] Received packet #1220, size: 81b, delay: 10.1282ms, buffer: 20ms
+[2025-08-17 23:18:04] Received packet #1230, size: 81b, delay: 8.309ms, buffer: 20ms
+[2025-08-17 23:18:04] Received packet #1240, size: 81b, delay: 15.8049ms, buffer: 10ms
+[2025-08-17 23:18:04] Received packet #1250, size: 81b, delay: 17.2697ms, buffer: 10ms
+[2025-08-17 23:18:04] Received packet #1260, size: 81b, delay: 28.4307ms, buffer: 10ms
+[2025-08-17 23:18:05] Received packet #1270, size: 100b, delay: 16.9026ms, buffer: 20ms
+[2025-08-17 23:18:05] Received packet #1280, size: 81b, delay: 5.6583ms, buffer: 10ms
+[2025-08-17 23:18:05] Received packet #1290, size: 91b, delay: 11.948ms, buffer: 10ms
+[2025-08-17 23:18:05] Received packet #1300, size: 81b, delay: 1.2524ms, buffer: 20ms
+[2025-08-17 23:18:05] Received packet #1310, size: 91b, delay: 10.1994ms, buffer: 20ms
+[2025-08-17 23:18:05] Received packet #1320, size: 81b, delay: 13.1078ms, buffer: 20ms
+[2025-08-17 23:18:05] Received packet #1330, size: 3b, delay: 14.9339ms, buffer: 40ms
+[2025-08-17 23:18:05] Received packet #1340, size: 3b, delay: 17.1959ms, buffer: 40ms
+[2025-08-17 23:18:05] Sent keep-alive packet #30 to 194.31.171.29:38592
+[2025-08-17 23:18:05] Received packet #1350, size: 89b, delay: 10.2055ms, buffer: 40ms
+[2025-08-17 23:18:05] Received packet #1360, size: 81b, delay: 10.4686ms, buffer: 40ms
+[2025-08-17 23:18:06] Received packet #1370, size: 66b, delay: 5.0278ms, buffer: 30ms
+[2025-08-17 23:18:06] Received packet #1380, size: 81b, delay: 104.8µs, buffer: 40ms
+[2025-08-17 23:18:06] Received packet #1390, size: 85b, delay: 10.3191ms, buffer: 40ms
+[2025-08-17 23:18:06] Received packet #1400, size: 72b, delay: 9.158ms, buffer: 40ms
+[2025-08-17 23:18:06] Received packet #1410, size: 84b, delay: 10.451ms, buffer: 30ms
+[2025-08-17 23:18:06] Received packet #1420, size: 81b, delay: 9.3009ms, buffer: 30ms
+[2025-08-17 23:18:06] Received packet #1430, size: 81b, delay: 11.366ms, buffer: 20ms
+[2025-08-17 23:18:06] Received packet #1440, size: 81b, delay: 7.9291ms, buffer: 20ms
+[2025-08-17 23:18:06] Received packet #1450, size: 84b, delay: 12.3853ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1460, size: 81b, delay: 10.0418ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1470, size: 81b, delay: 9.3986ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1480, size: 81b, delay: 10.8659ms, buffer: 10ms
+[2025-08-17 23:18:07] Received packet #1490, size: 69b, delay: 9.6403ms, buffer: 30ms
+[2025-08-17 23:18:07] Received packet #1500, size: 81b, delay: 10.1683ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1510, size: 83b, delay: 9.9087ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1520, size: 82b, delay: 11.1368ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1530, size: 85b, delay: 11.1144ms, buffer: 20ms
+[2025-08-17 23:18:07] Received packet #1540, size: 81b, delay: 11.3174ms, buffer: 10ms
+[2025-08-17 23:18:07] Received packet #1550, size: 81b, delay: 10.7958ms, buffer: 30ms
+[2025-08-17 23:18:08] Received packet #1560, size: 81b, delay: 10.5634ms, buffer: 30ms
+[2025-08-17 23:18:08] Received packet #1570, size: 81b, delay: 9.3545ms, buffer: 20ms
+[2025-08-17 23:18:08] Received packet #1580, size: 81b, delay: 7.0011ms, buffer: 10ms
+[2025-08-17 23:18:08] Received packet #1590, size: 81b, delay: 10.5562ms, buffer: 10ms
+[2025-08-17 23:18:08] Received packet #1600, size: 81b, delay: 8.9127ms, buffer: 10ms
+[2025-08-17 23:18:08] Received packet #1610, size: 81b, delay: 9.908ms, buffer: 30ms
+[2025-08-17 23:18:08] Received packet #1620, size: 98b, delay: 8.1004ms, buffer: 20ms
+[2025-08-17 23:18:08] Received packet #1630, size: 81b, delay: 6.1031ms, buffer: 20ms
+[2025-08-17 23:18:08] Received packet #1640, size: 81b, delay: 10.0597ms, buffer: 10ms
+[2025-08-17 23:18:09] Received packet #1650, size: 81b, delay: 10.1209ms, buffer: 10ms
+[2025-08-17 23:18:09] Received packet #1660, size: 81b, delay: 11.6184ms, buffer: 10ms
+[2025-08-17 23:18:09] Received packet #1670, size: 103b, delay: 32.8297ms, buffer: 10ms
+[2025-08-17 23:18:09] Received packet #1680, size: 54b, delay: 9.5007ms, buffer: 30ms
+[2025-08-17 23:18:09] Received packet #1690, size: 81b, delay: 31.0814ms, buffer: 10ms
+[2025-08-17 23:18:09] Received packet #1700, size: 83b, delay: 7.1676ms, buffer: 30ms
+[2025-08-17 23:18:09] Received packet #1710, size: 81b, delay: 19.4817ms, buffer: 20ms
+[2025-08-17 23:18:09] Received packet #1720, size: 81b, delay: 86.8µs, buffer: 20ms
+[2025-08-17 23:18:09] Received packet #1730, size: 3b, delay: 79.5µs, buffer: 20ms
+[2025-08-17 23:18:09] Received packet #1740, size: 3b, delay: 9.5639ms, buffer: 30ms
+[2025-08-17 23:18:10] Received packet #1750, size: 3b, delay: 9.8341ms, buffer: 20ms
+[2025-08-17 23:18:10] Received packet #1760, size: 81b, delay: 9.7561ms, buffer: 20ms
+[2025-08-17 23:18:10] Received packet #1770, size: 81b, delay: 10.7486ms, buffer: 20ms
+[2025-08-17 23:18:10] Received packet #1780, size: 3b, delay: 9.769ms, buffer: 10ms
+[2025-08-17 23:18:10] Received packet #1790, size: 3b, delay: 9.3725ms, buffer: 10ms
+[2025-08-17 23:18:10] Received packet #1800, size: 3b, delay: 98.5µs, buffer: 20ms
+[2025-08-17 23:18:10] Received packet #1810, size: 3b, delay: 10.6754ms, buffer: 60ms
+[2025-08-17 23:18:10] Received packet #1820, size: 81b, delay: 5.1551ms, buffer: 40ms
+[2025-08-17 23:18:10] Received packet #1830, size: 99b, delay: 50.9348ms, buffer: 10ms
+[2025-08-17 23:18:15] Sent keep-alive packet #40 to 194.31.171.29:38592
+[2025-08-17 23:18:17] Stopping voice client
+[2025-08-17 23:18:17] Audio receiver thread stopped
+[2025-08-17 23:18:17] Voice client stopped
+[2025-08-17 23:18:17] Freeing voice client
+[2025-08-17 23:18:17] Stopping voice client
+[2025-08-17 23:18:17] Voice client stopped
