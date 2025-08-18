@@ -10,7 +10,7 @@ use std::collections::VecDeque;
 use chrono::Utc;
 use cpal::{
     traits::{HostTrait, DeviceTrait, StreamTrait},
-    StreamConfig, SampleRate, SampleFormat, SupportedStreamConfig
+    StreamConfig, SampleRate, SampleFormat, SupportedStreamConfig, SupportedInputConfigs, SupportedOutputConfigs, SupportedStreamConfigRange
 };
 use opus::{Encoder, Decoder, Channels, Application, Bitrate};
 
@@ -20,6 +20,9 @@ const FRAME_SIZE: usize = 480;
 const BUFFER_DURATION_MS: u32 = 200;
 const KEEP_ALIVE_INTERVAL: Duration = Duration::from_secs(1);
 const MAX_PACKET_SIZE: usize = 4000;
+const DTX_THRESHOLD: f32 = 0.01; // Порог тишины (0.01 = 1% от максимальной амплитуды)
+const DTX_SILENCE_INTERVAL: Duration = Duration::from_millis(500); // Интервал отправки пакетов тишины
+const SILENCE_PACKET: [u8; 1] = [0x01]; // Специальный пакет для обозначения тишины
 
 // Вычисляем размер буфера во время компиляции
 const BUFFER_SAMPLES: usize = (SAMPLE_RATE as usize * BUFFER_DURATION_MS as usize) / 1000;
@@ -36,6 +39,9 @@ pub struct VoiceClient {
     encoder: Arc<Mutex<Encoder>>,
     playback_buffer: Arc<Mutex<VecDeque<f32>>>,
     bitrate: Arc<AtomicU32>,
+    // Новые поля для DTX:
+    last_silence_packet: Arc<Mutex<Instant>>,
+    was_speaking: Arc<AtomicBool>,
 }
 
 // Коды ошибок
@@ -68,6 +74,11 @@ fn log_message(message: &str) {
     {
         let _ = writeln!(file, "{}", log_entry);
     }
+}
+
+// Функция для обнаружения тишины
+fn is_silent_frame(data: &[f32], threshold: f32) -> bool {
+    !data.iter().any(|&sample| sample.abs() > threshold)
 }
 
 #[no_mangle]
@@ -147,9 +158,64 @@ pub extern "C" fn voice_client_new(server_ip: *const c_char, server_port: u16) -
         encoder: Arc::new(Mutex::new(encoder)),
         playback_buffer: Arc::new(Mutex::new(playback_buffer)),
         bitrate: Arc::new(AtomicU32::new(64000)),
+        // Инициализация DTX полей:
+        last_silence_packet: Arc::new(Mutex::new(Instant::now())),
+        was_speaking: Arc::new(AtomicBool::new(false)),
     });
     
     Box::into_raw(client) as *mut c_void
+}
+
+// Функция для поиска подходящей конфигурации аудио для входа
+fn find_suitable_input_config(
+    configs: SupportedInputConfigs,
+    target_sample_rate: u32,
+    target_channels: u16,
+) -> Option<SupportedStreamConfigRange> {
+    configs
+        .filter(|config| config.channels() == target_channels)
+        .filter(|config| {
+            let min_rate = config.min_sample_rate().0;
+            let max_rate = config.max_sample_rate().0;
+            target_sample_rate >= min_rate && target_sample_rate <= max_rate
+        })
+        .max_by(|a, b| {
+            // Предпочтение отдаем F32, затем I16, затем I32
+            let format_priority = |format: SampleFormat| match format {
+                SampleFormat::F32 => 3,
+                SampleFormat::I16 => 2,
+                SampleFormat::I32 => 1,
+                _ => 0,
+            };
+            
+            format_priority(a.sample_format()).cmp(&format_priority(b.sample_format()))
+        })
+}
+
+// Функция для поиска подходящей конфигурации аудио для выхода
+fn find_suitable_output_config(
+    configs: SupportedOutputConfigs,
+    target_sample_rate: u32,
+    target_channels: u16,
+) -> Option<SupportedStreamConfigRange> {
+    configs
+        .filter(|config| config.channels() == target_channels)
+        .filter(|config| {
+            let min_rate = config.min_sample_rate().0;
+            let max_rate = config.max_sample_rate().0;
+            target_sample_rate >= min_rate && target_sample_rate <= max_rate
+        })
+        .max_by(|a, b| {
+            // Предпочтение отдаем F32, затем I16, затем I32
+            let format_priority = |format: SampleFormat| match format {
+                SampleFormat::F32 => 3,
+                SampleFormat::I16 => 2,
+                SampleFormat::I32 => 1,
+                _ => 0,
+            };
+            
+            format_priority(a.sample_format()).cmp(&format_priority(b.sample_format()))
+        })
 }
 
 #[no_mangle]
@@ -188,49 +254,58 @@ pub extern "C" fn voice_client_start(client: *mut c_void) -> i32 {
         }
     };
     
-    // Явная конфигурация аудиопотоков
-    let stream_config = StreamConfig {
-        channels: 1,
-        sample_rate: SampleRate(SAMPLE_RATE),
-        buffer_size: cpal::BufferSize::Default,
-    };
-    
-    // Проверка поддержки формата f32
-    let input_supported = match input_device.supported_input_configs() {
-        Ok(mut configs) => configs.any(|c| 
-            c.channels() == 1 && 
-            c.min_sample_rate() <= SampleRate(SAMPLE_RATE) && 
-            c.max_sample_rate() >= SampleRate(SAMPLE_RATE) &&
-            c.sample_format() == SampleFormat::F32
-        ),
+    // Поиск подходящих конфигураций для входного устройства
+    let input_config = match input_device.supported_input_configs() {
+        Ok(configs) => {
+            match find_suitable_input_config(configs, SAMPLE_RATE, 1) {
+                Some(config) => {
+                    log_message(&format!("Selected input config: {:?}", config));
+                    config
+                },
+                None => {
+                    log_message("No suitable input configuration found");
+                    return error_codes::UNSUPPORTED_SAMPLE_FORMAT;
+                }
+            }
+        },
         Err(e) => {
             log_message(&format!("Failed to get input configs: {:?}", e));
             return error_codes::INPUT_STREAM_FAILED;
         }
     };
     
-    if !input_supported {
-        log_message("Input device does not support required configuration");
-        return error_codes::UNSUPPORTED_SAMPLE_FORMAT;
-    }
-    
-    let output_supported = match output_device.supported_output_configs() {
-        Ok(mut configs) => configs.any(|c| 
-            c.channels() == 1 && 
-            c.min_sample_rate() <= SampleRate(SAMPLE_RATE) && 
-            c.max_sample_rate() >= SampleRate(SAMPLE_RATE) &&
-            c.sample_format() == SampleFormat::F32
-        ),
+    // Поиск подходящих конфигураций для выходного устройства
+    let output_config = match output_device.supported_output_configs() {
+        Ok(configs) => {
+            match find_suitable_output_config(configs, SAMPLE_RATE, 1) {
+                Some(config) => {
+                    log_message(&format!("Selected output config: {:?}", config));
+                    config
+                },
+                None => {
+                    log_message("No suitable output configuration found");
+                    return error_codes::UNSUPPORTED_SAMPLE_FORMAT;
+                }
+            }
+        },
         Err(e) => {
             log_message(&format!("Failed to get output configs: {:?}", e));
             return error_codes::OUTPUT_STREAM_FAILED;
         }
     };
     
-    if !output_supported {
-        log_message("Output device does not support required configuration");
-        return error_codes::UNSUPPORTED_SAMPLE_FORMAT;
-    }
+    // Создание конфигураций потоков на основе найденных параметров
+    let input_stream_config = StreamConfig {
+        channels: input_config.channels(),
+        sample_rate: SampleRate(SAMPLE_RATE),
+        buffer_size: cpal::BufferSize::Default,
+    };
+    
+    let output_stream_config = StreamConfig {
+        channels: output_config.channels(),
+        sample_rate: SampleRate(SAMPLE_RATE),
+        buffer_size: cpal::BufferSize::Default,
+    };
     
     let socket_tx = client.socket.clone();
     let socket_rx = client.socket.clone();
@@ -242,11 +317,14 @@ pub extern "C" fn voice_client_start(client: *mut c_void) -> i32 {
     let encoder = client.encoder.clone();
     let playback_buffer = client.playback_buffer.clone();
     let bitrate = client.bitrate.clone();
+    // Новые поля для DTX:
+    let last_silence_packet = client.last_silence_packet.clone();
+    let was_speaking = client.was_speaking.clone();
 
     // Audio input thread
     let running1 = running.clone();
     let input_stream = match input_device.build_input_stream(
-        &stream_config,
+        &input_stream_config,
         move |data: &[f32], _: &_| {
             if !running1.load(Ordering::SeqCst) {
                 return;
@@ -268,45 +346,73 @@ pub extern "C" fn voice_client_start(client: *mut c_void) -> i32 {
             while acc.len() >= FRAME_SIZE {
                 let frame: Vec<f32> = acc.drain(0..FRAME_SIZE).collect();
                 
-                // Convert to PCM
-                let pcm: Vec<i16> = frame.iter()
-                    .map(|&s| {
-                        let scaled = s * 32767.0;
-                        if scaled > 32767.0 {
-                            32767
-                        } else if scaled < -32768.0 {
-                            -32768
-                        } else {
-                            scaled as i16
-                        }
-                    })
-                    .collect();
+                // Проверяем, есть ли голос в фрейме
+                let is_silent = is_silent_frame(&frame, DTX_THRESHOLD);
+                let current_time = Instant::now();
                 
-                let mut encoder_guard = match encoder.lock() {
-                    Ok(enc) => enc,
-                    Err(_) => return,
-                };
-                
-                // Применяем текущий битрейт
-                let current_bitrate = bitrate.load(Ordering::Relaxed) as i32;
-                if let Err(e) = encoder_guard.set_bitrate(Bitrate::Bits(current_bitrate)) {
-                    log_message(&format!("Failed to update bitrate: {:?}", e));
-                }
-                
-                let mut encoded = [0u8; 400];
-                match encoder_guard.encode(&pcm, &mut encoded) {
-                    Ok(len) => {
-                        if len > 0 {
-                            match socket_tx.send(&encoded[..len]) {
-                                Ok(_) => {},
-                                Err(e) => {
-                                    log_message(&format!("Send error: {}", e));
+                if !is_silent {
+                    // Есть голос - отправляем голосовой пакет
+                    was_speaking.store(true, Ordering::Relaxed);
+                    *last_silence_packet.lock().unwrap() = current_time; // Сбрасываем таймер тишины
+                    
+                    // Конвертируем в PCM
+                    let pcm: Vec<i16> = frame.iter()
+                        .map(|&s| {
+                            let scaled = s * 32767.0;
+                            if scaled > 32767.0 {
+                                32767
+                            } else if scaled < -32768.0 {
+                                -32768
+                            } else {
+                                scaled as i16
+                            }
+                        })
+                        .collect();
+                    
+                    let mut encoder_guard = match encoder.lock() {
+                        Ok(enc) => enc,
+                        Err(_) => return,
+                    };
+                    
+                    // Применяем текущий битрейт
+                    let current_bitrate = bitrate.load(Ordering::Relaxed) as i32;
+                    if let Err(e) = encoder_guard.set_bitrate(Bitrate::Bits(current_bitrate)) {
+                        log_message(&format!("Failed to update bitrate: {:?}", e));
+                    }
+                    
+                    let mut encoded = [0u8; 400];
+                    match encoder_guard.encode(&pcm, &mut encoded) {
+                        Ok(len) => {
+                            if len > 0 {
+                                match socket_tx.send(&encoded[..len]) {
+                                    Ok(_) => {},
+                                    Err(e) => {
+                                        log_message(&format!("Send error: {}", e));
+                                    }
                                 }
                             }
+                        },
+                        Err(e) => {
+                            log_message(&format!("Encoding error: {:?}", e));
                         }
-                    },
-                    Err(e) => {
-                        log_message(&format!("Encoding error: {:?}", e));
+                    }
+                } else {
+                    // Тишина - отправляем пакет тишины только при переходе или с интервалом
+                    let was_speaking_now = was_speaking.load(Ordering::Relaxed);
+                    let last_silence = *last_silence_packet.lock().unwrap();
+                    
+                    // Если только что закончили говорить или прошло достаточно времени
+                    if was_speaking_now || current_time.duration_since(last_silence) > DTX_SILENCE_INTERVAL {
+                        was_speaking.store(false, Ordering::Relaxed);
+                        *last_silence_packet.lock().unwrap() = current_time;
+                        
+                        // Отправляем специальный пакет тишины
+                        match socket_tx.send(&SILENCE_PACKET) {
+                            Ok(_) => {},
+                            Err(e) => {
+                                log_message(&format!("Silence packet send error: {}", e));
+                            }
+                        }
                     }
                 }
             }
@@ -334,7 +440,7 @@ pub extern "C" fn voice_client_start(client: *mut c_void) -> i32 {
     let running2 = running.clone();
     let playback_buffer_clone = playback_buffer.clone();
     let output_stream = match output_device.build_output_stream(
-        &stream_config,
+        &output_stream_config,
         move |data: &mut [f32], _: &_| {
             if !running2.load(Ordering::SeqCst) {
                 return;
