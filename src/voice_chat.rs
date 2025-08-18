@@ -10,7 +10,7 @@ use std::collections::VecDeque;
 use chrono::Utc;
 use cpal::{
     traits::{HostTrait, DeviceTrait, StreamTrait},
-    StreamConfig, SampleRate, SampleFormat, SupportedStreamConfig
+    StreamConfig, SampleRate, SampleFormat
 };
 use opus::{Encoder, Decoder, Channels, Application, Bitrate};
 
@@ -21,7 +21,6 @@ const BUFFER_DURATION_MS: u32 = 200;
 const KEEP_ALIVE_INTERVAL: Duration = Duration::from_secs(1);
 const MAX_PACKET_SIZE: usize = 4000;
 
-// Вычисляем размер буфера во время компиляции
 const BUFFER_SAMPLES: usize = (SAMPLE_RATE as usize * BUFFER_DURATION_MS as usize) / 1000;
 
 #[repr(C)]
@@ -38,7 +37,6 @@ pub struct VoiceClient {
     bitrate: Arc<AtomicU32>,
 }
 
-// Коды ошибок
 pub mod error_codes {
     pub const SUCCESS: i32 = 0;
     pub const NULL_POINTER: i32 = -1;
@@ -116,6 +114,7 @@ pub extern "C" fn voice_client_new(server_ip: *const c_char, server_port: u16) -
         }
     };
     
+    // Инициализация энкодера с оптимизацией для голоса
     let mut encoder = match Encoder::new(SAMPLE_RATE, CHANNELS, Application::Voip) {
         Ok(enc) => enc,
         Err(e) => {
@@ -124,15 +123,15 @@ pub extern "C" fn voice_client_new(server_ip: *const c_char, server_port: u16) -
         }
     };
     
-    // Установка VBR для качественной передачи голоса
-    if let Err(e) = encoder.set_bitrate(Bitrate::Bits(64000)) {
+    // Оптимальные настройки для голосовой связи
+    if let Err(e) = encoder.set_bitrate(Bitrate::Bits(24000)) {
         log_message(&format!("Failed to set bitrate: {:?}", e));
     }
     if let Err(e) = encoder.set_vbr(true) {
         log_message(&format!("Failed to set VBR: {:?}", e));
     }
     
-    // Инициализация буфера воспроизведения как VecDeque
+    // Инициализация буфера воспроизведения
     let buffer_capacity = (SAMPLE_RATE * BUFFER_DURATION_MS / 1000) as usize;
     let playback_buffer = VecDeque::with_capacity(buffer_capacity);
     
@@ -146,7 +145,7 @@ pub extern "C" fn voice_client_new(server_ip: *const c_char, server_port: u16) -
         pcm_accumulator: Arc::new(Mutex::new(Vec::new())),
         encoder: Arc::new(Mutex::new(encoder)),
         playback_buffer: Arc::new(Mutex::new(playback_buffer)),
-        bitrate: Arc::new(AtomicU32::new(64000)),
+        bitrate: Arc::new(AtomicU32::new(24000)),
     });
     
     Box::into_raw(client) as *mut c_void
